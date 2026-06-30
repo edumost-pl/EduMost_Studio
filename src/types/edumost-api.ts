@@ -38,6 +38,7 @@ export interface EduMostAPI {
     getDetail: (id: number) => Promise<unknown>;
     getCreateDefaults: (options: {
       subjectId: number;
+      schoolClass: number;
       sectionName: string;
       sectionId?: number | null;
     }) => Promise<unknown>;
@@ -60,6 +61,7 @@ export interface EduMostAPI {
         sectionId?: number | null;
       },
     ) => Promise<unknown>;
+    adjacent: (topicId: number, filters?: Record<string, unknown>) => Promise<unknown>;
   };
   lessons: {
     list: (filters?: Record<string, unknown>) => Promise<unknown>;
@@ -69,6 +71,10 @@ export interface EduMostAPI {
     create: (data: Record<string, unknown>, topicId: number) => Promise<unknown>;
     byTopic: (topicId: number) => Promise<unknown>;
     update: (id: number, data: Record<string, unknown>) => Promise<unknown>;
+    adjacent: (
+      lessonId: number,
+      filters?: { subjectId?: number; schoolClass?: number; topicId?: number },
+    ) => Promise<unknown>;
   };
   lessonResources: {
     byLesson: (lessonId: number) => Promise<unknown>;

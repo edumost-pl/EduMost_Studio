@@ -17,6 +17,8 @@
     "typecheck": "tsc -b --noEmit",
     "icons:mac": "bash scripts/build-mac-icon.sh",
     "db:verify": "ELECTRON_RUN_AS_NODE=1 electron --import tsx scripts/verify-db.ts",
+    "db:apply-klasa5": "ELECTRON_RUN_AS_NODE=1 electron --import tsx scripts/apply-klasa5-seed.ts",
+    "db:migrate-global-codes": "ELECTRON_RUN_AS_NODE=1 electron --import tsx scripts/migrate-global-topic-codes.ts",
     "postinstall": "electron-builder install-app-deps",
     "rebuild:native": "electron-rebuild -f -w better-sqlite3"
   },

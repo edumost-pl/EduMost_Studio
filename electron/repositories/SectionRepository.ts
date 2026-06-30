@@ -26,8 +26,14 @@ export class SectionRepository extends BaseRepository {
        INNER JOIN Topics t ON t.section_id = s.id AND t.is_active = 1
        INNER JOIN Curriculum c ON c.topic_id = t.id AND c.is_active = 1
        WHERE s.subject_id = ? AND s.is_active = 1 AND c.school_class = ?
-       ORDER BY s.display_order ASC, s.name_pl ASC`,
-      [subjectId, schoolClass],
+       ORDER BY (
+         SELECT MIN(c2.display_order)
+         FROM Topics t2
+         INNER JOIN Curriculum c2 ON c2.topic_id = t2.id AND c2.is_active = 1
+         WHERE t2.section_id = s.id AND t2.is_active = 1 AND c2.school_class = ?
+           AND c2.display_order >= 1
+       ) ASC, s.display_order ASC, s.name_pl ASC`,
+      [subjectId, schoolClass, schoolClass],
     );
   }
 

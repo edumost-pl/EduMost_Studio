@@ -115,22 +115,52 @@ export function registerIpcHandlers(): void {
   );
 
   ipcMain.handle(
+    IpcChannels.TOPICS_ADJACENT,
+    (_event, topicId: number, filters?: Record<string, unknown>) =>
+      getRepos().topics.findAdjacent(topicId, filters ?? {}),
+  );
+
+  ipcMain.handle(
     IpcChannels.TOPICS_GET_CREATE_DEFAULTS,
     (
       _event,
       options: {
         subjectId: number;
+        schoolClass: number;
         sectionName: string;
         sectionId?: number | null;
       },
     ) => {
       const repos = getRepos();
+      let sectionId = options.sectionId ?? null;
+      if (!sectionId) {
+        const section = repos.sections.findBySubjectAndName(
+          options.subjectId,
+          options.sectionName,
+        );
+        sectionId = section?.id ?? null;
+      }
+      if (sectionId) {
+        return {
+          code: repos.topics.suggestNextCode(
+            options.subjectId,
+            options.schoolClass,
+            sectionId,
+          ),
+        };
+      }
+      const subject = repos.subjects.findById(options.subjectId);
       const prefix = repos.sections.resolveSectionCode(
         options.subjectId,
         options.sectionName,
         options.sectionId,
       );
-      return { code: repos.topics.suggestNextCodeForPrefix(prefix) };
+      const subjectCode = subject?.code ?? 'SUB';
+      return {
+        code: repos.topics.suggestNextCodeForPrefix(
+          `${subjectCode}${options.schoolClass}-${prefix}`,
+        ),
+      };
     },
   );
 
@@ -271,6 +301,15 @@ export function registerIpcHandlers(): void {
 
   ipcMain.handle(IpcChannels.LESSONS_BY_TOPIC, (_event, topicId: number) =>
     getRepos().lessons.findByTopicId(topicId),
+  );
+
+  ipcMain.handle(
+    IpcChannels.LESSONS_ADJACENT,
+    (
+      _event,
+      lessonId: number,
+      filters?: { subjectId?: number; schoolClass?: number; topicId?: number },
+    ) => getRepos().lessons.findAdjacent(lessonId, filters ?? {}),
   );
 
   ipcMain.handle(IpcChannels.LESSONS_UPDATE, (_event, id: number, data) => {

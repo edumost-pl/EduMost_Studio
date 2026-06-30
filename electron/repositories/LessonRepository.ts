@@ -90,7 +90,8 @@ export class LessonRepository extends BaseRepository {
          t.outcomes_pl AS topic_outcomes_pl,
          t.outcomes_ua AS topic_outcomes_ua,
          sec.name_pl AS section_name_pl,
-         sec.name_ua AS section_name_ua
+         sec.name_ua AS section_name_ua,
+         sec.id AS section_id
        FROM LessonTopics lt
        INNER JOIN Topics t ON t.id = lt.topic_id AND t.is_active = 1
        INNER JOIN Sections sec ON sec.id = t.section_id
@@ -134,6 +135,46 @@ export class LessonRepository extends BaseRepository {
     }
 
     return `${prefix}${String(maxNum + 1).padStart(3, '0')}`;
+  }
+
+  findAdjacent(
+    lessonId: number,
+    filters: { subjectId?: number; schoolClass?: number; topicId?: number } = {},
+  ): { prev: Lesson | null; next: Lesson | null } {
+    const conditions = ['l.is_active = 1'];
+    const params: unknown[] = [];
+    let join = '';
+
+    if (filters.topicId) {
+      join = 'INNER JOIN LessonTopics lt ON lt.lesson_id = l.id AND lt.topic_id = ?';
+      params.push(filters.topicId);
+    }
+
+    if (filters.subjectId) {
+      conditions.push('l.subject_id = ?');
+      params.push(filters.subjectId);
+    }
+    if (filters.schoolClass) {
+      conditions.push('l.school_class = ?');
+      params.push(filters.schoolClass);
+    }
+
+    const items = this.all<Lesson>(
+      `SELECT l.* FROM Lessons l
+       ${join}
+       WHERE ${conditions.join(' AND ')}
+       ORDER BY l.code ASC`,
+      params,
+    );
+
+    const index = items.findIndex((item) => item.id === lessonId);
+    if (index < 0) {
+      return { prev: null, next: null };
+    }
+    return {
+      prev: index > 0 ? items[index - 1]! : null,
+      next: index < items.length - 1 ? items[index + 1]! : null,
+    };
   }
 
   create(data: Omit<Lesson, 'id' | 'created_at' | 'updated_at'>): Lesson {

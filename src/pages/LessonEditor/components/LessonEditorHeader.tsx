@@ -1,4 +1,6 @@
+import { CurriculumBreadcrumbs } from '@/components/layout/CurriculumBreadcrumbs';
 import { BilingualText } from '@/components/content/BilingualText';
+import { useCurriculumNavigation } from '@/hooks/useCurriculumNavigation';
 import { useI18n } from '@/i18n';
 import type { LessonDetail } from '@/types/database';
 import type { LessonFormData } from '../types';
@@ -46,38 +48,62 @@ export function LessonEditorHeader({
   isDirty: boolean;
 }) {
   const { t } = useI18n();
+  const {
+    goToSubject,
+    goToClass,
+    goToSection,
+    goToTopicEditor,
+    goToTopicLessons,
+  } = useCurriculumNavigation();
+
   const primaryTopic =
     detail?.topics?.find((topic) => topic.is_primary === 1) ?? detail?.topics?.[0];
+
+  const breadcrumbItems = [];
+
+  if (detail?.subject_id) {
+    breadcrumbItems.push({
+      label: detail.subject_name_ua,
+      onClick: () => goToSubject(detail.subject_id),
+    });
+  }
+
+  if (form?.school_class && detail?.subject_id) {
+    breadcrumbItems.push({
+      label: `${form.school_class} ${t('common.class')}`,
+      onClick: () => goToClass(detail.subject_id, form.school_class),
+    });
+  }
+
+  if (primaryTopic && form?.school_class && detail?.subject_id) {
+    breadcrumbItems.push({
+      label: primaryTopic.section_name_ua,
+      onClick: () =>
+        goToSection(detail.subject_id, form.school_class, primaryTopic.section_id),
+    });
+  }
+
+  if (primaryTopic && detail?.subject_id) {
+    breadcrumbItems.push({
+      label: `${primaryTopic.topic_name_pl} (${primaryTopic.topic_code})`,
+      onClick: () => goToTopicEditor(primaryTopic.topic_id),
+    });
+    breadcrumbItems.push({
+      label: t('topicCard.lessonsForTopic'),
+      onClick: () => goToTopicLessons(primaryTopic.topic_id),
+    });
+  }
+
+  breadcrumbItems.push({
+    label: form?.code ?? t('editor.createLesson'),
+  });
 
   return (
     <div className="shrink-0 border-b border-surface-border bg-white">
       <div className="px-4 py-3 sm:px-6">
-        <nav
-          aria-label="Breadcrumb"
-          className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500"
-        >
-          <span>{detail?.subject_name_ua ?? '—'}</span>
-          <span className="text-slate-300">›</span>
-          <span>
-            {form?.school_class ?? '—'} {t('common.class')}
-          </span>
-          {primaryTopic ? (
-            <>
-              <span className="text-slate-300">›</span>
-              <span>{primaryTopic.section_name_ua}</span>
-              <span className="text-slate-300">›</span>
-              <span>
-                {primaryTopic.topic_name_pl} ({primaryTopic.topic_code})
-              </span>
-            </>
-          ) : null}
-          <span className="text-slate-300">›</span>
-          <span>{t('topicCard.lessonsForTopic')}</span>
-          <span className="text-slate-300">›</span>
-          <span className="font-medium text-slate-800">
-            {form?.code ?? t('editor.createLesson')}
-          </span>
-        </nav>
+        <div className="mb-3">
+          <CurriculumBreadcrumbs items={breadcrumbItems} />
+        </div>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="min-w-0">

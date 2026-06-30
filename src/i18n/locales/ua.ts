@@ -102,6 +102,10 @@ export const ua: Translations = {
   'nav.sections': 'Розділи',
   'nav.sectionsForClass': 'Розділи ({class} клас)',
   'nav.settings': 'Налаштування',
+  'nav.prevTopic': 'Попередня тема',
+  'nav.nextTopic': 'Наступна тема',
+  'nav.prevLesson': 'Попередній урок',
+  'nav.nextLesson': 'Наступний урок',
   'search.placeholder':
     'Пошук (код, польська назва, українська назва, урок...)',
   'filter.subject': 'Предмет',
@@ -113,6 +117,7 @@ export const ua: Translations = {
   'explorer.foundTopics': 'Знайдено: {count} тем',
   'explorer.foundLessons': 'Знайдено: {count} уроків',
   'explorer.rowsPerPage': 'Рядків на сторінці',
+  'table.lp': '№',
   'table.code': 'Kod',
   'table.namePl': 'Polska nazwa',
   'table.nameUa': 'Українська nazwa',

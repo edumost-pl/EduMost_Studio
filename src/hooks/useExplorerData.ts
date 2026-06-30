@@ -3,6 +3,24 @@ import { useNavigation } from '@/context/NavigationContext';
 import { fetchLessons, fetchTopics, fetchTopicsCount } from '@/services/api';
 import type { Lesson, TopicListItem } from '@/types/database';
 
+/** Knowledge Explorer: textbook order from Curriculum.display_order only. */
+function sortTopicsByCurriculumOrder(topics: TopicListItem[]): TopicListItem[] {
+  return [...topics].sort((left, right) => {
+    const leftOrder = left.curriculum_display_order;
+    const rightOrder = right.curriculum_display_order;
+    if (leftOrder == null && rightOrder == null) {
+      return 0;
+    }
+    if (leftOrder == null) {
+      return 1;
+    }
+    if (rightOrder == null) {
+      return -1;
+    }
+    return leftOrder - rightOrder;
+  });
+}
+
 export function useExplorerData() {
   const nav = useNavigation();
   const [topics, setTopics] = useState<TopicListItem[]>([]);
@@ -35,6 +53,14 @@ export function useExplorerData() {
 
     const load = async () => {
       if (nav.dataType === 'topics') {
+        if (filters.schoolClass == null) {
+          if (!cancelled) {
+            setTopics([]);
+            setTotalCount(0);
+          }
+          return;
+        }
+
         const [data, count] = await Promise.all([
           fetchTopics(filters),
           fetchTopicsCount({
@@ -45,7 +71,7 @@ export function useExplorerData() {
           }),
         ]);
         if (!cancelled) {
-          setTopics(data);
+          setTopics(sortTopicsByCurriculumOrder(data));
           setTotalCount(count);
           if (data.length > 0 && !nav.selectedTopicId) {
             nav.setSelectedTopicId(data[0].id);

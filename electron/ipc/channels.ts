@@ -18,6 +18,7 @@ export const IpcChannels = {
   TOPICS_GET_CREATE_DEFAULTS: 'topics:getCreateDefaults',
   TOPICS_CREATE: 'topics:create',
   TOPICS_UPDATE: 'topics:update',
+  TOPICS_ADJACENT: 'topics:adjacent',
 
   LESSONS_LIST: 'lessons:list',
   LESSONS_GET: 'lessons:get',
@@ -26,6 +27,7 @@ export const IpcChannels = {
   LESSONS_CREATE: 'lessons:create',
   LESSONS_BY_TOPIC: 'lessons:byTopic',
   LESSONS_UPDATE: 'lessons:update',
+  LESSONS_ADJACENT: 'lessons:adjacent',
 
   LESSON_RESOURCES_BY_LESSON: 'lessonResources:byLesson',
   LESSON_RESOURCE_PREVIEW: 'lessonResources:preview',

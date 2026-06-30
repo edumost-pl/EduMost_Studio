@@ -47,12 +47,24 @@ try {
        WHERE s.code = 'FRA' AND c.school_class = 4`,
     )
     .get() as { count: number };
+  const klasa5Topics = db
+    .prepare(
+      `SELECT COUNT(*) AS count FROM Topics t
+       INNER JOIN Curriculum c ON c.topic_id = t.id
+       WHERE c.school_class = 5`,
+    )
+    .get() as { count: number };
+  const klasa5Lessons = db
+    .prepare(`SELECT COUNT(*) AS count FROM Lessons WHERE school_class = 5`)
+    .get() as { count: number };
 
   console.log('Subject MAT:', subject);
   console.log('Topic FRA-019:', topic);
   console.log('Lesson MAT4-021:', lesson);
   console.log('Settings:', settings);
   console.log(`Topics in FRA / class 4: ${topicsCount.count}`);
+  console.log(`Topics in class 5: ${klasa5Topics.count}`);
+  console.log(`Lessons in class 5: ${klasa5Lessons.count}`);
 
   service.close();
   fs.rmSync(testDir, { recursive: true, force: true });

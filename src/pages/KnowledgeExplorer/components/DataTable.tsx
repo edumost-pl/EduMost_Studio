@@ -35,9 +35,10 @@ export function TopicsTable({
   return (
     <div className="overflow-hidden rounded-xl border border-surface-border bg-white shadow-panel">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[720px] text-left text-sm">
+        <table className="w-full min-w-[780px] text-left text-sm">
           <thead>
             <tr className="border-b border-surface-border bg-surface-muted text-xs uppercase tracking-wide text-slate-500">
+              <th className="w-12 px-4 py-3 font-semibold">{t('table.lp')}</th>
               <th className="px-4 py-3 font-semibold">{t('table.code')}</th>
               <th className="px-4 py-3 font-semibold">{t('table.namePl')}</th>
               <th className="px-4 py-3 font-semibold">{t('table.nameUa')}</th>
@@ -59,6 +60,9 @@ export function TopicsTable({
                     selected ? 'bg-brand-50' : 'hover:bg-slate-50',
                   ].join(' ')}
                 >
+                  <td className="px-4 py-3 tabular-nums text-slate-500">
+                    {topic.curriculum_display_order ?? '—'}
+                  </td>
                   <td className="px-4 py-3 font-mono text-xs font-semibold text-brand-700">
                     {topic.code}
                   </td>

@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -35,6 +35,11 @@ function copyDatabaseAssets(outDir: string) {
   }
 
   cpSync(path.join(source, 'seed/seed.sql'), path.join(target, 'seed/seed.sql'), { force: true });
+
+  const klasa5Seed = path.join(source, 'seed/seed_klasa5_matematyka.sql');
+  if (existsSync(klasa5Seed)) {
+    cpSync(klasa5Seed, path.join(target, 'seed/seed_klasa5_matematyka.sql'), { force: true });
+  }
 }
 
 function copyDatabaseAssetsPlugin(outDir: string) {

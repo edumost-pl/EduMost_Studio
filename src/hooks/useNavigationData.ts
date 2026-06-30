@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@/context/NavigationContext';
 import type { Section, Subject } from '@/types/database';
-import { fetchSectionsBySubject, fetchSubjects } from '@/services/api';
+import { fetchSectionsByClass, fetchSectionsBySubject, fetchSubjects } from '@/services/api';
 
 const SUBJECT_ICONS: Record<string, string> = {
   MAT: '📐',
@@ -21,7 +21,7 @@ export function getSubjectIcon(subject: Pick<Subject, 'icon' | 'code'>): string 
 
 export function useNavigationData(
   subjectId: number | null,
-  _schoolClass: number | null,
+  schoolClass: number | null,
 ) {
   const nav = useNavigation();
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -59,8 +59,11 @@ export function useNavigationData(
       setSections([]);
       return;
     }
-    fetchSectionsBySubject(subjectId).then(setSections);
-  }, [subjectId, nav.explorerRefreshKey]);
+    const loadSections = schoolClass
+      ? fetchSectionsByClass(subjectId, schoolClass)
+      : fetchSectionsBySubject(subjectId);
+    loadSections.then(setSections);
+  }, [subjectId, schoolClass, nav.explorerRefreshKey]);
 
   return { subjects, sections, loading };
 }

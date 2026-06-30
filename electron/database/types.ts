@@ -166,7 +166,20 @@ export interface TopicListItem extends Topic {
   section_name_pl: string;
   section_name_ua: string;
   school_class: number | null;
+  curriculum_display_order?: number | null;
   lessons_count: number;
+}
+
+export interface TopicAdjacentItem {
+  id: number;
+  code: string;
+  name_pl: string;
+  name_ua: string;
+}
+
+export interface TopicAdjacentResult {
+  prev: TopicAdjacentItem | null;
+  next: TopicAdjacentItem | null;
 }
 
 export interface TopicRelationView extends TopicRelation {
@@ -188,6 +201,7 @@ export interface LessonTopicWithTopicView extends LessonTopic {
   topic_name_ua: string;
   section_name_pl: string;
   section_name_ua: string;
+  section_id: number;
   topic_prerequisites_pl: string | null;
   topic_prerequisites_ua: string | null;
   topic_outcomes_pl: string | null;

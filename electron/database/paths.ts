@@ -13,6 +13,10 @@ export function getSeedPath(baseDir: string): string {
   return path.join(getDatabaseAssetsDir(baseDir), 'seed', 'seed.sql');
 }
 
+export function getKlasa5SeedPath(baseDir: string): string {
+  return path.join(getDatabaseAssetsDir(baseDir), 'seed', 'seed_klasa5_matematyka.sql');
+}
+
 export function resolveDatabaseDir(userDataPath: string): string {
   return path.join(userDataPath, 'EduMost Studio');
 }

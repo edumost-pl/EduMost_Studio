@@ -6,10 +6,12 @@ import {
   createTopic,
   fetchSectionsBySubject,
   fetchSubjects,
+  fetchTopicAdjacent,
   fetchTopicCreateDefaults,
   fetchTopicDetail,
   updateTopic,
 } from '@/services/api';
+import { TopicSequenceNav } from '@/components/layout/SequenceNav';
 import type { Section, Subject, TopicDetail } from '@/types/database';
 import { TopicBasicInfoPanel } from './components/TopicBasicInfoPanel';
 import { TopicEditorFooter } from './components/TopicEditorFooter';
@@ -70,6 +72,10 @@ export function TopicEditorPage({
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [adjacent, setAdjacent] = useState<{
+    prev: { id: number; code: string; name: string } | null;
+    next: { id: number; code: string; name: string } | null;
+  }>({ prev: null, next: null });
   const codeSuggestionKeyRef = useRef('');
   const lastExplorerRefreshKeyRef = useRef(nav.explorerRefreshKey);
 
@@ -139,6 +145,7 @@ export function TopicEditorPage({
       if (sectionName && sectionId > 0) {
         const defaults = await fetchTopicCreateDefaults({
           subjectId: resolvedSubjectId,
+          schoolClass,
           sectionName,
           sectionId,
         });
@@ -212,6 +219,7 @@ export function TopicEditorPage({
     let cancelled = false;
     fetchTopicCreateDefaults({
       subjectId,
+      schoolClass: form.school_class,
       sectionName: form.section_name,
       sectionId: form.section_id > 0 ? form.section_id : null,
     })
@@ -227,7 +235,43 @@ export function TopicEditorPage({
     return () => {
       cancelled = true;
     };
-  }, [form?.section_id, form?.section_name, isCreate, subjectId]);
+  }, [form?.school_class, form?.section_id, form?.section_name, isCreate, subjectId]);
+
+  useEffect(() => {
+    if (isCreate || !topicId || !subjectId || !form?.school_class) {
+      setAdjacent({ prev: null, next: null });
+      return;
+    }
+    let cancelled = false;
+    fetchTopicAdjacent(topicId, {
+      subjectId,
+      schoolClass: form.school_class,
+      sectionId: nav.sectionId ?? undefined,
+    })
+      .then((result) => {
+        if (cancelled) return;
+        setAdjacent({
+          prev: result.prev
+            ? {
+                id: result.prev.id,
+                code: result.prev.code,
+                name: result.prev.name_pl,
+              }
+            : null,
+          next: result.next
+            ? {
+                id: result.next.id,
+                code: result.next.code,
+                name: result.next.name_pl,
+              }
+            : null,
+        });
+      })
+      .catch(console.error);
+    return () => {
+      cancelled = true;
+    };
+  }, [topicId, subjectId, form?.school_class, nav.sectionId, isCreate, nav.explorerRefreshKey]);
 
   const patchForm = useCallback((patch: Partial<TopicFormData>) => {
     setForm((prev) => (prev ? { ...prev, ...patch } : prev));
@@ -352,6 +396,7 @@ export function TopicEditorPage({
         detail={detail}
         form={form}
         isCreate={isCreate}
+        subjectId={subjectId ?? null}
         subjectNameUa={subject?.name_ua ?? detail?.subject_name_ua ?? '—'}
         sectionNameUa={sectionName}
         schoolClass={form.school_class}
@@ -360,6 +405,23 @@ export function TopicEditorPage({
         onNewLesson={!isCreate && topicId ? handleNewLesson : undefined}
         isDirty={isDirty}
       />
+
+      {!isCreate ? (
+        <TopicSequenceNav
+          prev={adjacent.prev}
+          next={adjacent.next}
+          onPrev={
+            adjacent.prev
+              ? () => nav.setEditingTopicId(adjacent.prev!.id)
+              : undefined
+          }
+          onNext={
+            adjacent.next
+              ? () => nav.setEditingTopicId(adjacent.next!.id)
+              : undefined
+          }
+        />
+      ) : null}
 
       <div className="min-h-0 flex-1 overflow-y-auto p-6">
         {error ? (

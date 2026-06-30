@@ -4,7 +4,7 @@ import path from 'node:path';
 import { loadNativeModule, readPackageVersion, resolveAppRoot } from '../paths/appRoot';
 import { isDatabaseEmpty, runMigrations } from './migrate';
 import { resolveAssetsBaseDir, resolveDatabasePath } from './paths';
-import { runSeed } from './seed';
+import { runKlasa5Seed, runSeed } from './seed';
 
 function loadBetterSqlite3(appRoot: string): typeof DatabaseType {
   return loadNativeModule<typeof DatabaseType>('better-sqlite3', appRoot);
@@ -76,6 +76,8 @@ export class DatabaseService {
     } else {
       this.seeded = false;
     }
+
+    runKlasa5Seed(this.db, resolveAssetsBaseDir(options.assetsBaseDir));
 
     this.syncSettingsPath(appVersion);
   }

@@ -47,12 +47,23 @@ export async function fetchTopicsCount(filters: TopicFilters): Promise<number> {
   return getApi().topics.count(filters as Record<string, unknown>) as Promise<number>;
 }
 
+export async function fetchTopicAdjacent(
+  topicId: number,
+  filters: TopicFilters,
+): Promise<{ prev: TopicListItem | null; next: TopicListItem | null }> {
+  return getApi().topics.adjacent(topicId, filters as Record<string, unknown>) as Promise<{
+    prev: TopicListItem | null;
+    next: TopicListItem | null;
+  }>;
+}
+
 export async function fetchTopicDetail(id: number): Promise<TopicDetail | null> {
   return (await getApi().topics.getDetail(id)) as TopicDetail | null;
 }
 
 export async function fetchTopicCreateDefaults(options: {
   subjectId: number;
+  schoolClass: number;
   sectionName: string;
   sectionId?: number | null;
 }): Promise<{ code: string }> {
@@ -118,6 +129,16 @@ export async function fetchLessons(filters: {
 
 export async function fetchLessonDetail(id: number): Promise<LessonDetail | null> {
   return (await getApi().lessons.getDetail(id)) as LessonDetail | null;
+}
+
+export async function fetchLessonAdjacent(
+  lessonId: number,
+  filters: { subjectId?: number; schoolClass?: number; topicId?: number },
+): Promise<{ prev: Lesson | null; next: Lesson | null }> {
+  return getApi().lessons.adjacent(lessonId, filters) as Promise<{
+    prev: Lesson | null;
+    next: Lesson | null;
+  }>;
 }
 
 export async function fetchLessonCreateDefaults(

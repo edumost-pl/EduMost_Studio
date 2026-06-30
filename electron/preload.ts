@@ -53,6 +53,7 @@ const api = {
       ipcRenderer.invoke(IpcChannels.TOPICS_GET_DETAIL, id),
     getCreateDefaults: (options: {
       subjectId: number;
+      schoolClass: number;
       sectionName: string;
       sectionId?: number | null;
     }) => ipcRenderer.invoke(IpcChannels.TOPICS_GET_CREATE_DEFAULTS, options),
@@ -75,6 +76,8 @@ const api = {
         sectionId?: number | null;
       },
     ) => ipcRenderer.invoke(IpcChannels.TOPICS_UPDATE, id, data, options),
+    adjacent: (topicId: number, filters?: Record<string, unknown>) =>
+      ipcRenderer.invoke(IpcChannels.TOPICS_ADJACENT, topicId, filters),
   },
   lessons: {
     list: (filters?: Record<string, unknown>) =>
@@ -94,6 +97,10 @@ const api = {
       ipcRenderer.invoke(IpcChannels.LESSONS_BY_TOPIC, topicId),
     update: (id: number, data: Record<string, unknown>) =>
       ipcRenderer.invoke(IpcChannels.LESSONS_UPDATE, id, data),
+    adjacent: (
+      lessonId: number,
+      filters?: { subjectId?: number; schoolClass?: number; topicId?: number },
+    ) => ipcRenderer.invoke(IpcChannels.LESSONS_ADJACENT, lessonId, filters),
   },
   lessonResources: {
     byLesson: (lessonId: number) =>

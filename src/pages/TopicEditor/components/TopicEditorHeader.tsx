@@ -1,4 +1,6 @@
+import { CurriculumBreadcrumbs } from '@/components/layout/CurriculumBreadcrumbs';
 import { BilingualText } from '@/components/content/BilingualText';
+import { useCurriculumNavigation } from '@/hooks/useCurriculumNavigation';
 import { useI18n } from '@/i18n';
 import type { TopicDetail } from '@/types/database';
 import type { TopicFormData } from '../types';
@@ -20,6 +22,7 @@ export function TopicEditorHeader({
   detail,
   form,
   isCreate,
+  subjectId,
   subjectNameUa,
   sectionNameUa,
   schoolClass,
@@ -31,6 +34,7 @@ export function TopicEditorHeader({
   detail: TopicDetail | null;
   form: TopicFormData;
   isCreate: boolean;
+  subjectId: number | null;
   subjectNameUa: string;
   sectionNameUa: string;
   schoolClass: number | null | undefined;
@@ -40,25 +44,49 @@ export function TopicEditorHeader({
   isDirty: boolean;
 }) {
   const { t } = useI18n();
+  const {
+    goToSubject,
+    goToClass,
+    goToSection,
+  } = useCurriculumNavigation();
+
+  const topicLabel = isCreate
+    ? t('editor.createTopic')
+    : `${form.name_pl || '—'} (${form.code})`;
+
+  const breadcrumbItems = [];
+
+  if (subjectId) {
+    breadcrumbItems.push({
+      label: subjectNameUa,
+      onClick: () => goToSubject(subjectId),
+    });
+  }
+
+  if (schoolClass && subjectId) {
+    breadcrumbItems.push({
+      label: `${schoolClass} ${t('common.class')}`,
+      onClick: () => goToClass(subjectId, schoolClass),
+    });
+  }
+
+  if (form.section_id > 0 && schoolClass && subjectId) {
+    breadcrumbItems.push({
+      label: sectionNameUa,
+      onClick: () => goToSection(subjectId, schoolClass, form.section_id),
+    });
+  }
+
+  if (!isCreate && detail) {
+    breadcrumbItems.push({ label: topicLabel });
+  } else {
+    breadcrumbItems.push({ label: topicLabel });
+  }
 
   return (
     <div className="border-b border-surface-border bg-white px-6 py-5">
       <div className="mb-4 flex items-start justify-between gap-4">
-        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
-          <span>{subjectNameUa}</span>
-          <span className="text-slate-300">›</span>
-          <span>
-            {schoolClass} {t('common.class')}
-          </span>
-          <span className="text-slate-300">›</span>
-          <span>{sectionNameUa}</span>
-          <span className="text-slate-300">›</span>
-          <span className="font-medium text-slate-800">
-            {isCreate
-              ? t('editor.createTopic')
-              : `${form.name_pl || '—'} (${form.code})`}
-          </span>
-        </nav>
+        <CurriculumBreadcrumbs items={breadcrumbItems} />
         <div className="flex shrink-0 items-center gap-2">
           {onNewLesson ? (
             <button

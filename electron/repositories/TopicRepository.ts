@@ -4,13 +4,37 @@ import type {
   TopicFilters,
   TopicListItem,
 } from '../database/types';
+import { buildTopicCode } from '../database/topicCode';
 import { BaseRepository } from './BaseRepository';
 
 export class TopicRepository extends BaseRepository {
+  private buildCurriculumJoin(schoolClass?: number): string {
+    if (schoolClass) {
+      return 'INNER JOIN Curriculum c ON c.topic_id = t.id AND c.is_active = 1';
+    }
+
+    return `LEFT JOIN Curriculum c ON c.topic_id = t.id AND c.is_active = 1
+         AND c.school_class = (
+           SELECT MIN(c2.school_class) FROM Curriculum c2
+           WHERE c2.topic_id = t.id AND c2.is_active = 1 AND c2.display_order >= 1
+         )`;
+  }
+
+  private buildTopicOrderBy(filters: TopicFilters): string {
+    if (filters.schoolClass) {
+      return 'c.display_order ASC';
+    }
+
+    if (filters.sectionId) {
+      return 'COALESCE(c.display_order, t.display_order) ASC';
+    }
+
+    return 'COALESCE(c.display_order, s.display_order * 1000 + t.display_order) ASC';
+  }
+
   findAll(filters: TopicFilters = {}): TopicListItem[] {
     const conditions = ['t.is_active = 1'];
     const params: unknown[] = [];
-    const joinCurriculum = Boolean(filters.schoolClass);
 
     if (filters.subjectId) {
       conditions.push('s.subject_id = ?');
@@ -24,6 +48,7 @@ export class TopicRepository extends BaseRepository {
 
     if (filters.schoolClass) {
       conditions.push('c.school_class = ?');
+      conditions.push('c.display_order >= 1');
       params.push(filters.schoolClass);
     }
 
@@ -35,13 +60,8 @@ export class TopicRepository extends BaseRepository {
       params.push(term, term, term);
     }
 
-    const curriculumJoin = joinCurriculum
-      ? 'INNER JOIN Curriculum c ON c.topic_id = t.id AND c.is_active = 1'
-      : `LEFT JOIN Curriculum c ON c.topic_id = t.id AND c.is_active = 1
-         AND c.school_class = (
-           SELECT MIN(c2.school_class) FROM Curriculum c2
-           WHERE c2.topic_id = t.id AND c2.is_active = 1
-         )`;
+    const curriculumJoin = this.buildCurriculumJoin(filters.schoolClass);
+    const orderBy = this.buildTopicOrderBy(filters);
 
     const where = `WHERE ${conditions.join(' AND ')}`;
     const limit = filters.limit ?? 100;
@@ -53,6 +73,7 @@ export class TopicRepository extends BaseRepository {
          s.name_pl AS section_name_pl,
          s.name_ua AS section_name_ua,
          c.school_class,
+         c.display_order AS curriculum_display_order,
          (
            SELECT COUNT(*)
            FROM LessonTopics lt
@@ -63,15 +84,63 @@ export class TopicRepository extends BaseRepository {
        INNER JOIN Sections s ON s.id = t.section_id
        ${curriculumJoin}
        ${where}
-       ORDER BY t.code ASC
+       ORDER BY ${orderBy}
        LIMIT ? OFFSET ?`,
       [...params, limit, offset],
     );
   }
 
   count(filters: TopicFilters = {}): number {
+    const conditions = ['t.is_active = 1'];
+    const params: unknown[] = [];
+
+    if (filters.subjectId) {
+      conditions.push('s.subject_id = ?');
+      params.push(filters.subjectId);
+    }
+    if (filters.sectionId) {
+      conditions.push('t.section_id = ?');
+      params.push(filters.sectionId);
+    }
+    if (filters.schoolClass) {
+      conditions.push('c.school_class = ?');
+      conditions.push('c.display_order >= 1');
+      params.push(filters.schoolClass);
+    }
+    if (filters.search?.trim()) {
+      const term = `%${filters.search.trim()}%`;
+      conditions.push('(t.code LIKE ? OR t.name_pl LIKE ? OR t.name_ua LIKE ?)');
+      params.push(term, term, term);
+    }
+
+    const join = filters.schoolClass
+      ? 'INNER JOIN Curriculum c ON c.topic_id = t.id AND c.is_active = 1'
+      : '';
+
+    const row = this.get<{ count: number }>(
+      `SELECT COUNT(*) AS count
+       FROM Topics t
+       INNER JOIN Sections s ON s.id = t.section_id
+       ${join}
+       WHERE ${conditions.join(' AND ')}`,
+      params,
+    );
+    return row?.count ?? 0;
+  }
+
+  findAdjacent(
+    topicId: number,
+    filters: TopicFilters = {},
+  ): { prev: TopicListItem | null; next: TopicListItem | null } {
     const items = this.findAll({ ...filters, limit: 10000, offset: 0 });
-    return items.length;
+    const index = items.findIndex((item) => item.id === topicId);
+    if (index < 0) {
+      return { prev: null, next: null };
+    }
+    return {
+      prev: index > 0 ? items[index - 1]! : null,
+      next: index < items.length - 1 ? items[index + 1]! : null,
+    };
   }
 
   findById(id: number): Topic | undefined {
@@ -158,7 +227,48 @@ export class TopicRepository extends BaseRepository {
     return `${codePrefix}${String(maxNum + 1).padStart(3, '0')}`;
   }
 
-  suggestNextCode(sectionId: number): string {
+  suggestNextCode(subjectId: number, schoolClass: number, sectionId: number): string {
+    const row = this.get<{
+      subject_code: string;
+      section_code: string;
+      next_order: number;
+    }>(
+      `SELECT
+         sub.code AS subject_code,
+         s.code AS section_code,
+         COALESCE(
+           (
+             SELECT MAX(c.display_order) + 1
+             FROM Curriculum c
+             INNER JOIN Topics t2 ON t2.id = c.topic_id AND t2.is_active = 1
+             INNER JOIN Sections s2 ON s2.id = t2.section_id
+             WHERE c.is_active = 1
+               AND c.school_class = ?
+               AND s2.subject_id = ?
+               AND c.display_order >= 1
+           ),
+           1
+         ) AS next_order
+       FROM Sections s
+       INNER JOIN Subjects sub ON sub.id = s.subject_id
+       WHERE s.id = ? AND s.subject_id = ?`,
+      [schoolClass, subjectId, sectionId, subjectId],
+    );
+
+    if (!row) {
+      throw new Error('Section not found');
+    }
+
+    return buildTopicCode(
+      row.subject_code,
+      schoolClass,
+      row.section_code,
+      row.next_order,
+    );
+  }
+
+  /** @deprecated Legacy section-only codes — do not use for new topics. */
+  suggestNextCodeLegacy(sectionId: number): string {
     const section = this.get<{ code: string }>(
       'SELECT code FROM Sections WHERE id = ?',
       [sectionId],

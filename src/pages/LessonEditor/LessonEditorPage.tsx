@@ -3,9 +3,10 @@ import { useNavigation } from '@/context/NavigationContext';
 import { useI18n } from '@/i18n';
 import {
   createLesson,
+  fetchLessonAdjacent,
   fetchLessonCreateDefaults,
   fetchLessonDetail,
-  fetchSectionsBySubject,
+  fetchSectionsByClass,
   fetchSubjects,
   fetchTopicDetail,
   fetchTopics,
@@ -18,6 +19,7 @@ import {
   LessonEditorHeader,
   type LessonStudioMode,
 } from './components/LessonEditorHeader';
+import { LessonSequenceNav } from '@/components/layout/SequenceNav';
 import { LessonEditorTabs } from './components/LessonEditorTabs';
 import { LessonViewDocument } from './components/LessonViewDocument';
 import type { LessonCreatePickerState } from './components/LessonCreateTopicPicker';
@@ -104,6 +106,7 @@ function buildCreateLessonDetail(
         topic_outcomes_ua: topicDetail.outcomes_ua,
         section_name_pl: topicDetail.section_name_pl,
         section_name_ua: topicDetail.section_name_ua,
+        section_id: topicDetail.section_id,
       },
     ],
     resources: [],
@@ -129,6 +132,10 @@ export function LessonEditorPage({
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [adjacent, setAdjacent] = useState<{
+    prev: { id: number; code: string; name: string } | null;
+    next: { id: number; code: string; name: string } | null;
+  }>({ prev: null, next: null });
   const [activeTab] = useState<'editor'>('editor');
 
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -201,7 +208,10 @@ export function LessonEditorPage({
           };
           setPicker(initialPicker);
 
-          const sectionList = await fetchSectionsBySubject(initialPicker.subjectId);
+          const sectionList = await fetchSectionsByClass(
+            initialPicker.subjectId,
+            initialPicker.schoolClass,
+          );
           if (cancelled) return;
           setSections(sectionList);
 
@@ -279,7 +289,10 @@ export function LessonEditorPage({
     let cancelled = false;
     const run = async () => {
       try {
-        const sectionList = await fetchSectionsBySubject(picker.subjectId);
+        const sectionList = await fetchSectionsByClass(
+          picker.subjectId,
+          picker.schoolClass,
+        );
         if (cancelled) return;
         setSections(sectionList);
 
@@ -338,6 +351,36 @@ export function LessonEditorPage({
     };
   }, [createFromExplorer, loadLessonForTopic, picker.topicId]);
 
+  useEffect(() => {
+    if (isCreate || !lessonId || !detail || !form) {
+      setAdjacent({ prev: null, next: null });
+      return;
+    }
+    const primaryTopic =
+      detail.topics?.find((topic) => topic.is_primary === 1) ?? detail.topics?.[0];
+    let cancelled = false;
+    fetchLessonAdjacent(lessonId, {
+      subjectId: detail.subject_id,
+      schoolClass: form.school_class,
+      topicId: primaryTopic?.topic_id,
+    })
+      .then((result) => {
+        if (cancelled) return;
+        setAdjacent({
+          prev: result.prev
+            ? { id: result.prev.id, code: result.prev.code, name: result.prev.title_pl }
+            : null,
+          next: result.next
+            ? { id: result.next.id, code: result.next.code, name: result.next.title_pl }
+            : null,
+        });
+      })
+      .catch(console.error);
+    return () => {
+      cancelled = true;
+    };
+  }, [lessonId, detail, form, isCreate, nav.explorerRefreshKey]);
+
   const isDirty = useMemo(
     () => Boolean(form && original && !formDataEqual(form, original)),
     [form, original],
@@ -360,9 +403,12 @@ export function LessonEditorPage({
   }, []);
 
   const reloadSectionsForPicker = useCallback(async () => {
-    const sectionList = await fetchSectionsBySubject(picker.subjectId);
+    const sectionList = await fetchSectionsByClass(
+      picker.subjectId,
+      picker.schoolClass,
+    );
     setSections(sectionList);
-  }, [picker.subjectId]);
+  }, [picker.subjectId, picker.schoolClass]);
 
   const handleBack = useCallback(() => {
     if (isDirty && !window.confirm(t('editor.unsavedChanges'))) {
@@ -477,6 +523,18 @@ export function LessonEditorPage({
         saving={saving}
         isDirty={isDirty}
       />
+      {!isCreate && lessonId ? (
+        <LessonSequenceNav
+          prev={adjacent.prev}
+          next={adjacent.next}
+          onPrev={
+            adjacent.prev ? () => nav.setEditingLessonId(adjacent.prev!.id) : undefined
+          }
+          onNext={
+            adjacent.next ? () => nav.setEditingLessonId(adjacent.next!.id) : undefined
+          }
+        />
+      ) : null}
       <LessonEditorTabs activeTab={activeTab} onTabChange={() => undefined} />
 
       <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">

@@ -1,0 +1,35 @@
+---
+description: Official EduMost Studio topic code standard (SUBJECT-CLASS-SECTION-ORDER)
+globs: electron/database/**/*.ts,electron/repositories/Topic*.ts,scripts/generate-*-curriculum.py,scripts/*seed*.ts
+alwaysApply: false
+---
+
+# Topic Codes — EduMost Studio Standard
+
+Topic codes are **educational identifiers**, not technical IDs.
+
+## Format
+
+`SUBJECT-CLASS-SECTION-ORDER`
+
+Examples: `MAT5-NUM-001`, `MAT5-GEO-014`, `MAT5-FRA-027`, `MAT5-SOL-071`
+
+- **SUBJECT** — subject code (`MAT`, `POL`, `ENG`, …)
+- **CLASS** — school class number (4–8)
+- **SECTION** — section code (`NUM`, `GEO`, `FRA`, `DEC`, `ARE`, `QTY`, `DATA`, `SOL`, …)
+- **ORDER** — global 3-digit position from `Curriculum.display_order` (does **not** reset per section)
+
+## Rules
+
+1. Use `buildTopicCode()` from `electron/database/topicCode.ts` — never invent ad-hoc formats.
+2. **Wrong**: `NUM-001`, `GEO-001`, `FRA-001` (no subject/class; section-local numbering).
+3. **Wrong**: `PREFIX-001` without subject and class (e.g. bare `NUM-014`).
+4. `Curriculum.display_order` is the source of ORDER; topic list sorting uses `c.display_order ASC`.
+5. `TopicRelations` must reference `topic_id`, never topic code strings.
+6. New imports/seeds must follow this standard for all subjects and classes (`MAT4-…`, `POL5-…`, etc.).
+
+## Implementation
+
+- Generator: `topic_code(section, order)` → `MAT5-{section}-{order:03d}`
+- Migration: `migrateGlobalTopicCodes()` in `electron/database/migrateGlobalTopicCodes.ts`
+- Suggest next code: `TopicRepository.suggestNextCode(subjectId, schoolClass, sectionId)`

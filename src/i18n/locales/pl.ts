@@ -103,6 +103,10 @@ export const pl: Translations = {
   'nav.sections': 'Działy',
   'nav.sectionsForClass': 'Działy (klasa {class})',
   'nav.settings': 'Ustawienia',
+  'nav.prevTopic': 'Poprzedni temat',
+  'nav.nextTopic': 'Następny temat',
+  'nav.prevLesson': 'Poprzednia lekcja',
+  'nav.nextLesson': 'Następna lekcja',
   'search.placeholder':
     'Szukaj (kod, nazwa polska, nazwa ukraińska, lekcja...)',
   'filter.subject': 'Przedmiot',
@@ -114,6 +118,7 @@ export const pl: Translations = {
   'explorer.foundTopics': 'Znaleziono: {count} tematów',
   'explorer.foundLessons': 'Znaleziono: {count} lekcji',
   'explorer.rowsPerPage': 'Wierszy na stronie',
+  'table.lp': 'Lp',
   'table.code': 'Kod',
   'table.namePl': 'Polska nazwa',
   'table.nameUa': 'Ukraińska nazwa',

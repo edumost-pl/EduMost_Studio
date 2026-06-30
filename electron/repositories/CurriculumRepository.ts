@@ -51,7 +51,8 @@ export class CurriculumRepository extends BaseRepository {
          FROM Curriculum c
          INNER JOIN Topics t ON t.id = c.topic_id AND t.is_active = 1
          INNER JOIN Sections s ON s.id = t.section_id
-         WHERE c.school_class = ? AND c.is_active = 1 AND s.subject_id = ?
+         WHERE c.school_class = ? AND c.is_active = 1 AND c.display_order >= 1
+           AND s.subject_id = ?
          ORDER BY c.display_order ASC`,
         [schoolClass, subjectId],
       );
@@ -59,7 +60,7 @@ export class CurriculumRepository extends BaseRepository {
 
     return this.all<Curriculum>(
       `SELECT * FROM Curriculum
-       WHERE school_class = ? AND is_active = 1
+       WHERE school_class = ? AND is_active = 1 AND display_order >= 1
        ORDER BY display_order ASC`,
       [schoolClass],
     );
