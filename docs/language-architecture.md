@@ -136,3 +136,8 @@ UI-рядки **ніколи** не зберігаються в таблицях
 3. Sidebar labels предметів → `name_ua` (при UI=UA) або `name_pl` (при UI=PL)
 4. Заголовки колонок контенту → «Polska nazwa» / «Українська nazwa» (не перекладаються)
 5. Нові екрани обов'язково дотримуються порядку PL → UA
+
+
+
+# Sborka na Aple
+        npm run electron:build
