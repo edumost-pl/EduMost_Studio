@@ -8,7 +8,9 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Database from 'better-sqlite3';
-import { migrateGlobalTopicCodes } from '../electron/database/migrateGlobalTopicCodes';
+import { DatabaseInUseError, DatabaseLock } from '../electron/database/databaseLock';
+import { configureDatabaseConnection } from '../electron/database/databasePragmas';
+import { runKlasa5Seed } from '../electron/database/seed';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const defaultDb = path.join(
@@ -16,20 +18,28 @@ const defaultDb = path.join(
   'Library/Application Support/edumost-studio/EduMost Studio/edumost.db',
 );
 const dbPath = process.argv[2] ?? defaultDb;
-const seedPath = path.join(__dirname, '../electron/database/seed/seed_klasa5_matematyka.sql');
+const assetsBaseDir = path.join(__dirname, '../electron');
 
 if (!fs.existsSync(dbPath)) {
   console.error(`Database not found: ${dbPath}`);
   process.exit(1);
 }
-if (!fs.existsSync(seedPath)) {
-  console.error(`Seed file not found: ${seedPath}`);
-  process.exit(1);
-}
 
 const before = { curriculum: 0, lessons: 0, topics: 0 };
+const dbLock = new DatabaseLock(dbPath);
+
+try {
+  dbLock.acquire();
+} catch (error) {
+  if (error instanceof DatabaseInUseError) {
+    console.error(error.message);
+    process.exit(1);
+  }
+  throw error;
+}
+
 const db = new Database(dbPath);
-db.pragma('foreign_keys = ON');
+configureDatabaseConnection(db);
 
 before.curriculum = (
   db.prepare('SELECT COUNT(*) AS c FROM Curriculum WHERE school_class = 5').get() as { c: number }
@@ -46,11 +56,7 @@ before.topics = (
 ).c;
 
 console.log(`Applying Klasa 5 seed to:\n  ${dbPath}\n`);
-db.exec(fs.readFileSync(seedPath, 'utf-8'));
-const migrated = migrateGlobalTopicCodes(db);
-if (migrated > 0) {
-  console.log(`Global topic codes migrated: ${migrated}`);
-}
+runKlasa5Seed(db, assetsBaseDir);
 
 const after = {
   curriculum: (
@@ -73,3 +79,4 @@ console.log(`  Curriculum (class 5): ${before.curriculum} → ${after.curriculum
 console.log(`  Topics (class 5):     ${before.topics} → ${after.topics}`);
 console.log(`  Lessons (class 5):    ${before.lessons} → ${after.lessons}`);
 db.close();
+dbLock.release();

@@ -2,6 +2,8 @@ import type DatabaseType from 'better-sqlite3';
 import fs from 'node:fs';
 import path from 'node:path';
 import { loadNativeModule, readPackageVersion, resolveAppRoot } from '../paths/appRoot';
+import { DatabaseLock } from './databaseLock';
+import { configureDatabaseConnection } from './databasePragmas';
 import { isDatabaseEmpty, runMigrations } from './migrate';
 import { resolveAssetsBaseDir, resolveDatabasePath } from './paths';
 import { runKlasa5Seed, runSeed } from './seed';
@@ -47,6 +49,7 @@ export class DatabaseService {
   private readonly dbPath: string;
   private readonly isNew: boolean;
   private readonly seeded: boolean;
+  private readonly dbLock: DatabaseLock;
 
   constructor(options: DatabaseServiceOptions) {
     const appRoot = resolveAppRoot(options.assetsBaseDir);
@@ -63,10 +66,11 @@ export class DatabaseService {
     ensureUserDataDirectories(dir);
 
     this.isNew = !fs.existsSync(this.dbPath);
+    this.dbLock = new DatabaseLock(this.dbPath);
+    this.dbLock.acquire();
 
     this.db = new Database(this.dbPath);
-    this.db.pragma('journal_mode = WAL');
-    this.db.pragma('foreign_keys = ON');
+    configureDatabaseConnection(this.db);
 
     runMigrations(this.db, resolveAssetsBaseDir(options.assetsBaseDir));
 
@@ -152,6 +156,7 @@ export class DatabaseService {
 
   close(): void {
     this.db.close();
+    this.dbLock.release();
   }
 }
 
