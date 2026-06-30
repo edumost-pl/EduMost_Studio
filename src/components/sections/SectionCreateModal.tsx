@@ -1,0 +1,188 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigation } from '@/context/NavigationContext';
+import { useI18n } from '@/i18n';
+import { createSection, fetchSectionSuggestCode } from '@/services/api';
+import type { Section } from '@/types/database';
+
+const fieldClass =
+  'w-full rounded-lg border border-surface-border bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100';
+
+export function SectionCreateModal() {
+  const { t } = useI18n();
+  const nav = useNavigation();
+  const [namePl, setNamePl] = useState('');
+  const [nameUa, setNameUa] = useState('');
+  const [code, setCode] = useState('');
+  const [codeTouched, setCodeTouched] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const subjectId = nav.sectionCreateSubjectId ?? nav.subjectId;
+
+  useEffect(() => {
+    if (!nav.sectionCreateModalOpen) {
+      setNamePl('');
+      setNameUa('');
+      setCode('');
+      setCodeTouched(false);
+      setError(null);
+      setSaving(false);
+    }
+  }, [nav.sectionCreateModalOpen]);
+
+  useEffect(() => {
+    if (!nav.sectionCreateModalOpen || !subjectId || codeTouched) return;
+
+    const label = nameUa.trim() || namePl.trim();
+    if (!label) {
+      setCode('');
+      return;
+    }
+
+    let cancelled = false;
+    fetchSectionSuggestCode(subjectId, label)
+      .then((suggested) => {
+        if (!cancelled) setCode(suggested);
+      })
+      .catch(() => {
+        if (!cancelled) setCode('');
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [codeTouched, namePl, nameUa, nav.sectionCreateModalOpen, subjectId]);
+
+  const handleClose = useCallback(() => {
+    if (saving) return;
+    nav.closeSectionCreateModal();
+  }, [nav, saving]);
+
+  const handleSave = useCallback(async () => {
+    if (!subjectId) return;
+    if (!namePl.trim() || !nameUa.trim()) {
+      setError(t('editor.validationRequired'));
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    try {
+      const section = await createSection(subjectId, {
+        name_pl: namePl.trim(),
+        name_ua: nameUa.trim(),
+        code: code.trim() || undefined,
+      });
+
+      const onSuccess = nav.sectionCreateHandlers.current.onSuccess;
+      if (onSuccess) {
+        onSuccess(section);
+      } else {
+        nav.setSectionId(section.id);
+        nav.refreshExplorer();
+      }
+
+      nav.closeSectionCreateModal();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      setError(
+        message.includes('DUPLICATE_CODE')
+          ? t('editor.duplicateCode')
+          : t('editor.saveError'),
+      );
+    } finally {
+      setSaving(false);
+    }
+  }, [code, namePl, nameUa, nav, subjectId, t]);
+
+  if (!nav.sectionCreateModalOpen) {
+    return null;
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="section-create-title"
+        className="w-full max-w-md rounded-2xl border border-surface-border bg-white shadow-xl"
+      >
+        <div className="border-b border-surface-border px-6 py-4">
+          <h2 id="section-create-title" className="text-lg font-semibold text-slate-900">
+            {t('editor.createSectionTitle')}
+          </h2>
+        </div>
+
+        <div className="space-y-4 px-6 py-5">
+          {error ? (
+            <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </div>
+          ) : null}
+
+          <div>
+            <label className="mb-1.5 block text-xs font-medium text-slate-600">
+              {t('content.labelPl')}
+            </label>
+            <input
+              type="text"
+              value={namePl}
+              onChange={(e) => setNamePl(e.target.value)}
+              className={fieldClass}
+              autoFocus
+            />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs font-medium text-slate-600">
+              {t('content.labelUa')}
+            </label>
+            <input
+              type="text"
+              value={nameUa}
+              onChange={(e) => setNameUa(e.target.value)}
+              className={fieldClass}
+            />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs font-medium text-slate-600">
+              {t('editor.sectionCode')}
+            </label>
+            <input
+              type="text"
+              value={code}
+              onChange={(e) => {
+                setCodeTouched(true);
+                setCode(e.target.value);
+              }}
+              className={`${fieldClass} font-mono`}
+            />
+            <p className="mt-1.5 text-xs text-slate-400">{t('editor.codeAutoGenerated')}</p>
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-3 border-t border-surface-border px-6 py-4">
+          <button
+            type="button"
+            onClick={handleClose}
+            disabled={saving}
+            className="rounded-xl border border-surface-border px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+          >
+            {t('editor.cancel')}
+          </button>
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={saving || !subjectId}
+            className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+          >
+            {saving ? t('common.loading') : t('action.save')}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export type SectionCreateSuccessHandler = (section: Section) => void;

@@ -1,0 +1,3370 @@
+{
+  "summary": {
+    "writes": 185,
+    "replaces": 419,
+    "files": 113
+  },
+  "files": [
+    ".gitignore",
+    "build/README.md",
+    "docs/language-architecture.md",
+    "electron/database/DatabaseService.ts",
+    "electron/database/databaseManager.ts",
+    "electron/database/diagnostics.ts",
+    "electron/database/migrate.ts",
+    "electron/database/migrations/001_initial.sql",
+    "electron/database/migrations/002_settings_extensions.sql",
+    "electron/database/migrations/003_reference_dictionaries.sql",
+    "electron/database/paths.ts",
+    "electron/database/referenceExport.ts",
+    "electron/database/seed.ts",
+    "electron/database/seed/seed.sql",
+    "electron/database/types.ts",
+    "electron/documentation/buildSnapshot.ts",
+    "electron/documentation/metadata.ts",
+    "electron/documentation/types.ts",
+    "electron/ipc/channels.ts",
+    "electron/ipc/handlers.ts",
+    "electron/ipc/resourcePreview.ts",
+    "electron/logging/startupLogger.ts",
+    "electron/main.ts",
+    "electron/paths/appIcon.ts",
+    "electron/paths/appRoot.ts",
+    "electron/preload.ts",
+    "electron/repositories/BaseRepository.ts",
+    "electron/repositories/CurriculumRepository.ts",
+    "electron/repositories/LessonRepository.ts",
+    "electron/repositories/LessonResourceRepository.ts",
+    "electron/repositories/LessonStatusRepository.ts",
+    "electron/repositories/LessonTopicRepository.ts",
+    "electron/repositories/LessonTypeRepository.ts",
+    "electron/repositories/SchoolClassRepository.ts",
+    "electron/repositories/SectionRepository.ts",
+    "electron/repositories/SettingsRepository.ts",
+    "electron/repositories/SubjectRepository.ts",
+    "electron/repositories/TopicRelationRepository.ts",
+    "electron/repositories/TopicRepository.ts",
+    "electron/repositories/index.ts",
+    "index.html",
+    "package.json",
+    "postcss.config.js",
+    "scripts/build-mac-icon.sh",
+    "scripts/verify-db.ts",
+    "src/App.tsx",
+    "src/components/AppBootstrap.tsx",
+    "src/components/ErrorBoundary.tsx",
+    "src/components/content/BilingualFieldGroup.tsx",
+    "src/components/content/BilingualText.tsx",
+    "src/components/layout/AppShell.tsx",
+    "src/components/layout/Breadcrumbs.tsx",
+    "src/components/layout/HelpModal.tsx",
+    "src/components/layout/Sidebar.tsx",
+    "src/components/layout/TopBar.tsx",
+    "src/components/sections/SectionCreateModal.tsx",
+    "src/constants/language.ts",
+    "src/context/NavigationContext.tsx",
+    "src/context/ShellContext.tsx",
+    "src/hooks/useExplorerData.ts",
+    "src/hooks/useNavigationData.ts",
+    "src/i18n/index.ts",
+    "src/i18n/locales/pl.ts",
+    "src/i18n/locales/ua.ts",
+    "src/i18n/types.ts",
+    "src/main.tsx",
+    "src/pages/Dashboard/DashboardPage.tsx",
+    "src/pages/Directories/DirectoriesPage.tsx",
+    "src/pages/Directories/components/ReferenceUi.tsx",
+    "src/pages/Documentation/DocumentationPage.tsx",
+    "src/pages/Documentation/components/DocUi.tsx",
+    "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+    "src/pages/KnowledgeExplorer/components/DataTable.tsx",
+    "src/pages/KnowledgeExplorer/components/PaginationBar.tsx",
+    "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+    "src/pages/LessonEditor/LessonEditorPage.tsx",
+    "src/pages/LessonEditor/components/LessonBasicInfoPanel.tsx",
+    "src/pages/LessonEditor/components/LessonCreateTopicPicker.tsx",
+    "src/pages/LessonEditor/components/LessonEditForm.tsx",
+    "src/pages/LessonEditor/components/LessonEditorFooter.tsx",
+    "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+    "src/pages/LessonEditor/components/LessonEditorTabs.tsx",
+    "src/pages/LessonEditor/components/LessonResourcesList.tsx",
+    "src/pages/LessonEditor/components/LessonSectionCard.tsx",
+    "src/pages/LessonEditor/components/LessonTopicsList.tsx",
+    "src/pages/LessonEditor/components/LessonViewDocument.tsx",
+    "src/pages/LessonEditor/components/ResourcePreviewModal.tsx",
+    "src/pages/LessonEditor/types.ts",
+    "src/pages/Settings/SettingsPage.tsx",
+    "src/pages/Settings/components/SettingsCard.tsx",
+    "src/pages/TopicEditor/TopicEditorPage.tsx",
+    "src/pages/TopicEditor/components/TerminologyEditor.tsx",
+    "src/pages/TopicEditor/components/TopicBasicInfoPanel.tsx",
+    "src/pages/TopicEditor/components/TopicEditorFooter.tsx",
+    "src/pages/TopicEditor/components/TopicEditorHeader.tsx",
+    "src/pages/TopicEditor/components/TopicEditorLessonsTable.tsx",
+    "src/pages/TopicEditor/components/TopicEditorRelatedList.tsx",
+    "src/pages/TopicEditor/types.ts",
+    "src/services/api.ts",
+    "src/services/docsApi.ts",
+    "src/services/referenceApi.ts",
+    "src/services/resources.ts",
+    "src/styles/globals.css",
+    "src/types/database.ts",
+    "src/types/documentation.ts",
+    "src/types/edumost-api.ts",
+    "src/utils/resourcePreview.ts",
+    "src/vite-env.d.ts",
+    "tailwind.config.js",
+    "tsconfig.app.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "vite.config.ts"
+  ],
+  "operations_report": [
+    {
+      "path": ".gitignore",
+      "action": "Write",
+      "status": "ok",
+      "size": 80
+    },
+    {
+      "path": "package.json",
+      "action": "Write",
+      "status": "ok",
+      "size": 1310
+    },
+    {
+      "path": "tsconfig.json",
+      "action": "Write",
+      "status": "ok",
+      "size": 119
+    },
+    {
+      "path": "tsconfig.app.json",
+      "action": "Write",
+      "status": "ok",
+      "size": 692
+    },
+    {
+      "path": "tsconfig.node.json",
+      "action": "Write",
+      "status": "ok",
+      "size": 567
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 523
+    },
+    {
+      "path": "postcss.config.js",
+      "action": "Write",
+      "status": "ok",
+      "size": 81
+    },
+    {
+      "path": "tailwind.config.js",
+      "action": "Write",
+      "status": "ok",
+      "size": 801
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1518
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 252
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 217
+    },
+    {
+      "path": "index.html",
+      "action": "Write",
+      "status": "ok",
+      "size": 576
+    },
+    {
+      "path": "src/styles/globals.css",
+      "action": "Write",
+      "status": "ok",
+      "size": 365
+    },
+    {
+      "path": "src/main.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 333
+    },
+    {
+      "path": "src/App.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 404
+    },
+    {
+      "path": "src/components/layout/AppShell.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 434
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3185
+    },
+    {
+      "path": "src/components/layout/Breadcrumbs.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 633
+    },
+    {
+      "path": "src/components/layout/TopBar.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2846
+    },
+    {
+      "path": "src/pages/HomePage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1472
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/TopBar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/main.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/main.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "postcss.config.js",
+      "action": "Write",
+      "status": "ok",
+      "size": 83
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 630
+    },
+    {
+      "path": "electron/database/migrations/001_initial.sql",
+      "action": "Write",
+      "status": "ok",
+      "size": 8210
+    },
+    {
+      "path": "electron/database/seed/seed.sql",
+      "action": "Write",
+      "status": "ok",
+      "size": 18353
+    },
+    {
+      "path": "electron/database/seed/seed.sql",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/paths.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 843
+    },
+    {
+      "path": "electron/database/migrate.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 909
+    },
+    {
+      "path": "electron/database/seed.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 364
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 3105
+    },
+    {
+      "path": "electron/database/paths.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 784
+    },
+    {
+      "path": "electron/database/migrate.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 947
+    },
+    {
+      "path": "electron/database/seed.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 400
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 3721
+    },
+    {
+      "path": "electron/database/types.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 4015
+    },
+    {
+      "path": "electron/repositories/BaseRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 539
+    },
+    {
+      "path": "electron/repositories/SubjectRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 592
+    },
+    {
+      "path": "electron/repositories/SectionRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1163
+    },
+    {
+      "path": "electron/repositories/TopicRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 4198
+    },
+    {
+      "path": "electron/repositories/CurriculumRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1051
+    },
+    {
+      "path": "electron/repositories/LessonRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2233
+    },
+    {
+      "path": "electron/repositories/LessonTopicRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 589
+    },
+    {
+      "path": "electron/repositories/LessonResourceRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 413
+    },
+    {
+      "path": "electron/repositories/TopicRelationRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1823
+    },
+    {
+      "path": "electron/repositories/SettingsRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 918
+    },
+    {
+      "path": "electron/repositories/index.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1877
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 990
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 3949
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/TopicRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1969
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2904
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 176
+    },
+    {
+      "path": "src/types/database.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 608
+    },
+    {
+      "path": "scripts/verify-db.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2272
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1710
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "scripts/verify-db-runner.cjs",
+      "action": "Write",
+      "status": "ok",
+      "size": 2191
+    },
+    {
+      "path": "scripts/verify-db-runner.cjs",
+      "action": "Delete",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/migrate.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 997
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/SettingsRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/SettingsRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "test-main-root.js",
+      "action": "Write",
+      "status": "ok",
+      "size": 143
+    },
+    {
+      "path": "test-main-root.js",
+      "action": "Delete",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 4229
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1939
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "docs/language-architecture.md",
+      "action": "Write",
+      "status": "ok",
+      "size": 2943
+    },
+    {
+      "path": "src/constants/language.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1327
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1131
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1495
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1571
+    },
+    {
+      "path": "src/i18n/index.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2185
+    },
+    {
+      "path": "src/components/content/BilingualText.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3501
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1165
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2638
+    },
+    {
+      "path": "src/hooks/useNavigationData.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1050
+    },
+    {
+      "path": "src/hooks/useExplorerData.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2459
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/FilterChips.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 877
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/DataTable.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5433
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 6144
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/PaginationBar.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1629
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5151
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3238
+    },
+    {
+      "path": "src/components/layout/TopBar.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3417
+    },
+    {
+      "path": "src/components/layout/Breadcrumbs.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1172
+    },
+    {
+      "path": "src/components/layout/AppShell.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 680
+    },
+    {
+      "path": "src/App.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 701
+    },
+    {
+      "path": "src/main.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 535
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "src/hooks/useExplorerData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/hooks/useExplorerData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/hooks/useExplorerData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/hooks/useExplorerData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/hooks/useExplorerData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/HomePage.tsx",
+      "action": "Delete",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/content/BilingualText.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/ErrorBoundary.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1204
+    },
+    {
+      "path": "src/components/AppBootstrap.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1599
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1747
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1558
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 50
+    },
+    {
+      "path": "src/main.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 765
+    },
+    {
+      "path": "src/App.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 708
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/styles/globals.css",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/AppShell.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/hooks/useExplorerData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/content/BilingualFieldGroup.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2981
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/types.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1323
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TerminologyEditor.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3904
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorLessonsTable.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2170
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorRelatedList.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2083
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorHeader.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3564
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorFooter.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1283
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicBasicInfoPanel.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3811
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 9572
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorLessonsTable.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/LessonRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/LessonRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/LessonRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/database.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/types.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2085
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3348
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorTabs.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2106
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorFooter.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 973
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonBasicInfoPanel.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 6366
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonTopicsList.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1212
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonResourcesList.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2110
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 10813
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorLessonsTable.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorLessonsTable.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/LessonRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonSectionCard.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 563
+    },
+    {
+      "path": "src/components/content/BilingualFieldGroup.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2871
+    },
+    {
+      "path": "src/components/content/BilingualFieldGroup.tsx",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "src/components/content/BilingualFieldGroup.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonResourcesList.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2615
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonBasicInfoPanel.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5531
+    },
+    {
+      "path": "src/components/content/BilingualFieldGroup.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3559
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4548
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorTabs.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2252
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 8533
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TerminologyEditor.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TerminologyEditor.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonViewDocument.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 6021
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditForm.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4061
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 6027
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorFooter.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1308
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonViewDocument.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5229
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/resourcePreview.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2664
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/utils/resourcePreview.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1462
+    },
+    {
+      "path": "src/services/resources.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 793
+    },
+    {
+      "path": "src/pages/LessonEditor/components/ResourcePreviewModal.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5301
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonResourcesList.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3797
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/ResourcePreviewModal.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2737
+    },
+    {
+      "path": "electron/repositories/TopicRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/CurriculumRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/LessonRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/LessonTopicRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4078
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "src/pages/TopicEditor/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 13855
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorHeader.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4375
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorFooter.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 9555
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorFooter.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditForm.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditForm.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonBasicInfoPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonBasicInfoPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "scripts/test-create-flows.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 3796
+    },
+    {
+      "path": "scripts/test-create-flows.ts",
+      "action": "Delete",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/SectionRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 4969
+    },
+    {
+      "path": "electron/repositories/TopicRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/TopicRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/CurriculumRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/CurriculumRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicBasicInfoPanel.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4100
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 15143
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/components/SectionComboBox.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4120
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonCreateTopicPicker.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4093
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicBasicInfoPanel.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 3635
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicEditorLessonsTable.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2771
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 14601
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditForm.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5705
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonBasicInfoPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonBasicInfoPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditorHeader.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/sections/SectionCreateModal.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5790
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5526
+    },
+    {
+      "path": "src/hooks/useNavigationData.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1129
+    },
+    {
+      "path": "src/pages/TopicEditor/components/TopicBasicInfoPanel.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4849
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/sections/SectionCreateModal.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonCreateTopicPicker.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonCreateTopicPicker.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonCreateTopicPicker.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditForm.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/components/LessonEditForm.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/components/SectionComboBox.tsx",
+      "action": "Delete",
+      "status": "ok"
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/DataTable.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/DataTable.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/DataTable.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/DataTable.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/LessonEditor/LessonEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/TopicDetailPanel.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/TopicEditor/TopicEditorPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/migrations/002_settings_extensions.sql",
+      "action": "Write",
+      "status": "ok",
+      "size": 139
+    },
+    {
+      "path": "electron/database/migrate.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1575
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 7170
+    },
+    {
+      "path": "electron/database/migrate.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1771
+    },
+    {
+      "path": "electron/database/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/database.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Settings/components/SettingsCard.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2473
+    },
+    {
+      "path": "src/pages/Settings/SettingsPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 12672
+    },
+    {
+      "path": "src/App.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 3356
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/migrations/003_reference_dictionaries.sql",
+      "action": "Write",
+      "status": "ok",
+      "size": 2531
+    },
+    {
+      "path": "electron/database/migrate.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/SubjectRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 3256
+    },
+    {
+      "path": "electron/repositories/SectionRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/SectionRepository.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/LessonTypeRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2379
+    },
+    {
+      "path": "electron/repositories/LessonStatusRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2419
+    },
+    {
+      "path": "electron/repositories/SchoolClassRepository.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2985
+    },
+    {
+      "path": "electron/database/referenceExport.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 3954
+    },
+    {
+      "path": "electron/repositories/index.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/index.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/repositories/index.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/services/referenceApi.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 5145
+    },
+    {
+      "path": "src/types/database.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Directories/DirectoriesPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 27083
+    },
+    {
+      "path": "src/pages/Directories/components/ReferenceUi.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 5346
+    },
+    {
+      "path": "src/App.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Settings/SettingsPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Settings/SettingsPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/KnowledgeExplorerPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/KnowledgeExplorer/components/FilterChips.tsx",
+      "action": "Delete",
+      "status": "ok"
+    },
+    {
+      "path": "src/hooks/useNavigationData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/hooks/useNavigationData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/hooks/useNavigationData.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/ShellContext.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1544
+    },
+    {
+      "path": "src/pages/Dashboard/DashboardPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2776
+    },
+    {
+      "path": "src/components/layout/HelpModal.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 1771
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/context/NavigationContext.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/TopBar.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 4913
+    },
+    {
+      "path": "src/components/layout/AppShell.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 966
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/Sidebar.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/App.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/main.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/main.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/documentation/types.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1479
+    },
+    {
+      "path": "electron/documentation/metadata.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 4054
+    },
+    {
+      "path": "electron/documentation/buildSnapshot.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 10375
+    },
+    {
+      "path": "electron/ipc/channels.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/documentation.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 270
+    },
+    {
+      "path": "src/services/docsApi.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 368
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Documentation/components/DocUi.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2059
+    },
+    {
+      "path": "src/pages/Documentation/DocumentationPage.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 13803
+    },
+    {
+      "path": "src/App.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/App.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/components/layout/HelpModal.tsx",
+      "action": "Write",
+      "status": "ok",
+      "size": 2217
+    },
+    {
+      "path": "src/pages/Documentation/DocumentationPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/documentation.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1479
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Documentation/DocumentationPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/documentation/buildSnapshot.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/paths/appRoot.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1558
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/paths/appRoot.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/paths/appRoot.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/documentation/buildSnapshot.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/seed/seed.sql",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 3315
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/edumost-api.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Dashboard/DashboardPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Dashboard/DashboardPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Dashboard/DashboardPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "build/README.md",
+      "action": "Write",
+      "status": "ok",
+      "size": 88
+    },
+    {
+      "path": "electron/logging/startupLogger.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1653
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 6879
+    },
+    {
+      "path": "electron/paths/appRoot.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2191
+    },
+    {
+      "path": "electron/logging/startupLogger.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2294
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 7193
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/preload.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/paths.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/paths.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/paths.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1108
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/DatabaseService.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/logging/startupLogger.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 2319
+    },
+    {
+      "path": "vite.config.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "electron/paths/appRoot.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/paths/appIcon.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 1485
+    },
+    {
+      "path": "electron/paths/appIcon.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "scripts/build-mac-icon.sh",
+      "action": "Write",
+      "status": "ok",
+      "size": 1079
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "package.json",
+      "action": "StrReplace",
+      "status": "failed",
+      "detail": "old_string not found"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "build/README.md",
+      "action": "Write",
+      "status": "ok",
+      "size": 209
+    },
+    {
+      "path": "electron/database/diagnostics.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 5293
+    },
+    {
+      "path": "electron/database/diagnostics.ts",
+      "action": "Write",
+      "status": "ok",
+      "size": 5448
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/database/databaseManager.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/main.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/types/database.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "electron/ipc/handlers.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/ua.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/locales/pl.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/i18n/types.ts",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Settings/SettingsPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    },
+    {
+      "path": "src/pages/Settings/SettingsPage.tsx",
+      "action": "StrReplace",
+      "status": "ok"
+    }
+  ]
+}
